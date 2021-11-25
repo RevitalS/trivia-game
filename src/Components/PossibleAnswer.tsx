@@ -3,28 +3,22 @@ import { useFormInput } from '../hooks/useFormInput';
 
 interface IProps {
   text: string;
-  index: number;
-  handleQuestions: (answer: number) => void;
+  index: string;
+  isChecked: boolean;
+  setChoosenAnswer: (string: string) => void;
 }
 
 const PossibleAnswer: React.FC<IProps> = (props) => {
-  const { text, index } = props;
-  const handleChange = (value: string) => {
-    props.handleQuestions(parseInt(value));
-  };
-
-  const value = useFormInput('', handleChange);
+  const { text, isChecked, index, setChoosenAnswer } = props;
 
   return (
     <div>
-      <label htmlFor={index.toString() + text}>
+      <label>
         <input
           type='radio'
-          value={index.toString()}
           name='question'
-          id={index.toString() + text}
-          checked={value.value === text}
-          onChange={value.onChange}
+          checked = {isChecked}
+          onChange={() => setChoosenAnswer(index)}
         />{' '}
         {text}
       </label>

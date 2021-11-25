@@ -26,6 +26,8 @@ const Content: React.FC<IProps> = (props) => {
     const correctAnswers = userAnswers.filter(
       (userAnswer, i) => userAnswer === answers[i]
     );
+    const gradePerAnswer = 100/ userAnswers.length;
+    return gradePerAnswer * correctAnswers.length;
     console.log(correctAnswers);
   };
 
@@ -52,7 +54,6 @@ const Content: React.FC<IProps> = (props) => {
 
   useEffect(() => {
     if (Object.keys(props.questionsObject).length > 0) {
-      console.log('content', props.questionsObject);
       setHasQuestions(true);
     }
   }, [props.questionsObject]);
@@ -70,11 +71,10 @@ const Content: React.FC<IProps> = (props) => {
           </div>
         )
       ) : (
-        <Finish />
+        <Finish grade={calculatedGrade()} />
       )}
     </div>
   );
 };
-
 
 export default Content;
