@@ -26,29 +26,20 @@ export const triviaSlice = createSlice({
         possibleAnswers: ['Israel', 'USA', 'Greece'],
       },
     ],
+    currentQuestionIndex: 0,
     answers: [0, 1, 2, 0, 2],
     userAnswers: Array<number>(),
   },
   reducers: {
       addAnswer: (state, action: PayloadAction<number>) => {
         state.userAnswers.push(action.payload);
+      },
+      incrementTheIndex: (state) => {
+        state.currentQuestionIndex+= 1;
       }
-    // 	add: (state, action: PayloadAction<>) => {
-    // 		// Redux Toolkit allows us to write "mutating" logic in reducers. It
-    // 		// doesn't actually mutate the state because it uses the Immer library,
-    // 		// which detects changes to a "draft state" and produces a brand new
-    // 		// immutable state based off those changes
-    // 		state.items.push(action.payload);
-    // 	},
-    // toggleCompleted: (state, action: PayloadAction<string>) => {
-    //   const todo = state.items.find(item => item.id === action.payload);
-    //   if(todo) {
-    //     todo.completed = !todo.completed;
-    //   }
-    // }
   },
 });
 
-//export const { add, toggleCompleted } = todoSlice.actions;
+export const { addAnswer, incrementTheIndex } = triviaSlice.actions;
 
 export default triviaSlice.reducer;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Content from './Components/Content';
+import {useAppDispatch, useAppSelector} from './store/hooks'
 
 interface IState {
   questions: any,
@@ -21,7 +22,7 @@ useEffect(() => {
   return (
     <div className='App'>
       <h1>Trivia</h1>
-      <Content questionsObject={questionsObject} />
+      <Content />
     </div>
   );
 }

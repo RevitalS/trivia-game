@@ -3,44 +3,43 @@ import Progressbar from './Progressbar';
 import Question from './Question';
 import { IQuestion } from '../models/IQuestion';
 import Finish from './Finish';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import {incrementTheIndex} from '../store/triviaSlice'
 
-interface IProps {
-  questionsObject: any;
-}
+
 
 interface IState {
   hasQuestions: boolean;
-  userAnswers: Array<number>;
-  questionIndex: number;
   stillAnswer: boolean;
 }
 
-const Content: React.FC<IProps> = (props) => {
-  const { questions, answers } = props.questionsObject;
+const Content: React.FC<{}> = () => {
+
+  const dispatch = useAppDispatch();
+
   const [stillAnswer, setStillAnswer] = useState(true);
   const [hasQuestions, setHasQuestions] = useState(false);
-  const [questionIndex, setQuestionIndex] = useState(0);
-  const [userAnswers, setUserAnswers] = useState(Array<number>());
+
+
+  const currentQuestionIndex = useAppSelector(
+    (state) => state.trivia.currentQuestionIndex
+  );
+  const numberOfQuestions = useAppSelector(state => state.trivia.questions.length);
+  const userAnswers = useAppSelector(state => state.trivia.userAnswers);
+  const correctAnswers = useAppSelector(state => state.trivia.answers);
+
 
   const calculatedGrade = () => {
-    const correctAnswers = userAnswers.filter(
-      (userAnswer, i) => userAnswer === answers[i]
+    const correctUserAnswers = userAnswers.filter(
+      (userAnswer, i) => userAnswer === correctAnswers[i]
     );
     const gradePerAnswer = 100/ userAnswers.length;
-    return gradePerAnswer * correctAnswers.length;
-    console.log(correctAnswers);
-  };
-
-  const saveUserAnswer = (answer: number) => {
-    const updateAnswers = [...userAnswers, answer];
-    setUserAnswers(updateAnswers);
+    return gradePerAnswer * correctUserAnswers.length;
   };
 
   const moveToNextQuestion = () => {
-    console.log('moveToNextQuestion', questionIndex);
-    if (questionIndex < questions.length - 1) {
-      console.log('move');
-      setQuestionIndex(questionIndex + 1);
+    if (currentQuestionIndex < numberOfQuestions - 1) {
+      dispatch(incrementTheIndex);
     } else {
       calculatedGrade();
       setStillAnswer(false);
@@ -48,15 +47,14 @@ const Content: React.FC<IProps> = (props) => {
   };
 
   const handleQuestions = (answer: number) => {
-    saveUserAnswer(answer);
     moveToNextQuestion();
   };
 
   useEffect(() => {
-    if (Object.keys(props.questionsObject).length > 0) {
+    if (numberOfQuestions > 0) {
       setHasQuestions(true);
     }
-  }, [props.questionsObject]);
+  }, [numberOfQuestions]);
 
   return (
     <div>
@@ -64,7 +62,6 @@ const Content: React.FC<IProps> = (props) => {
         hasQuestions && (
           <div>
             <Question
-              question={questions[questionIndex]}
               handleQuestions={handleQuestions}
             />
             <Progressbar />
