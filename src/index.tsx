@@ -6,16 +6,20 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import About from './Components/About';
 import HomePage from './Components/HomePage';
+import { Provider } from 'react-redux';
+import store from './store';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Routes>
-      <Route path='/home' element={<HomePage />} />
-      <Route path='/' element={<Navigate to='/home' />} />
-      <Route path='/about' element={<About />} />
-      <Route path='/game' element={<App />} />
-    </Routes>
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/home' element={<HomePage />} />
+        <Route path='/' element={<Navigate to='/home' />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/game' element={<App />} />
+      </Routes>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 );
 
