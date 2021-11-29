@@ -5,7 +5,7 @@ interface IProps {
   text: string;
   index: string;
   isChecked: boolean;
-  setChoosenAnswer: (string: string) => void;
+  setChoosenAnswer: (number: number) => void;
 }
 
 const PossibleAnswer: React.FC<IProps> = (props) => {
@@ -18,7 +18,7 @@ const PossibleAnswer: React.FC<IProps> = (props) => {
           type='radio'
           name='question'
           checked = {isChecked}
-          onChange={() => setChoosenAnswer(index)}
+          onChange={() => setChoosenAnswer(parseInt(index))}
         />{' '}
         {text}
       </label>

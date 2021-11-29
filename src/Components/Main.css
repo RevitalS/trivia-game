@@ -1,4 +1,25 @@
 .main {
-	max-width: 300px;
+	max-width: 700px;
 	margin: auto;
+	padding-bottom: 20px;
+	color: white;
+	font-size:30px;
+	border: 5px solid #44d6db;
+	text-align: center;
 }
+button{
+	background: #4df0f0;
+	background-image: linear-gradient(to bottom, #4df0f0, #3ec2b7);
+	border-radius: 5px;
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 20px;
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
+  }
+  
+  button:hover {
+	background: #2eb3b3;
+	background-image: linear-gradient(to bottom, #2eb3b3, #4df0f0);
+	text-decoration: none;
+  }

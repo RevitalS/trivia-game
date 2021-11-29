@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { Outlet } from 'react-router';
 import './App.css';
 import Content from './Components/Content';
+import HomePage from './Components/HomePage';
 import {useAppDispatch, useAppSelector} from './store/hooks'
 
 interface IState {
@@ -9,20 +11,18 @@ interface IState {
 
 const App: React.FC = (props) => { 
 
-const [questionsObject, setQuestionsObject] = useState({})
-
-useEffect(() => {
-  fetch('questions.json')
-    .then((response) => response.json())
-    .then(data => {setQuestionsObject(data);
-      console.log(questionsObject);
-    });
-}, []);
+// useEffect(() => {
+//   fetch('questions.json')
+//     .then((response) => response.json())
+//     .then(data => {setQuestionsObject(data);
+//       console.log(questionsObject);
+//     });
+// }, []);
 
   return (
     <div className='App'>
       <h1>Trivia</h1>
-      <Content />
+      <Outlet/>
     </div>
   );
 }

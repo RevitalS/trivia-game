@@ -28,18 +28,30 @@ export const triviaSlice = createSlice({
     ],
     currentQuestionIndex: 0,
     answers: [0, 1, 2, 0, 2],
-    userAnswers: Array<number>(),
+    userAnswers: Array(5).fill(-1),
   },
   reducers: {
-      addAnswer: (state, action: PayloadAction<number>) => {
-        state.userAnswers.push(action.payload);
-      },
-      incrementTheIndex: (state) => {
-        state.currentQuestionIndex+= 1;
+    addAnswer: (state, action: PayloadAction<number>) => {
+      if (state.userAnswers.length === 0) {
+        state.userAnswers = Array<number>(state.questions.length);
+        console.log(state.userAnswers);
       }
+      state.userAnswers[state.currentQuestionIndex] = action.payload;
+    },
+    incrementTheIndex: (state) => {
+      state.currentQuestionIndex += 1;
+    },
+    decrementTheIndex: (state) => {
+      state.currentQuestionIndex -= 1;
+    },
+    reset: (state) => {
+      console.log('reset');
+      state.userAnswers = Array(5).fill(-1);
+      state.currentQuestionIndex = 0;
+    },
   },
 });
 
-export const { addAnswer, incrementTheIndex } = triviaSlice.actions;
+export const { addAnswer, incrementTheIndex, decrementTheIndex, reset } = triviaSlice.actions;
 
 export default triviaSlice.reducer;

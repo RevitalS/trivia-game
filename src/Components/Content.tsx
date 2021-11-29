@@ -4,9 +4,8 @@ import Question from './Question';
 import { IQuestion } from '../models/IQuestion';
 import Finish from './Finish';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import {incrementTheIndex} from '../store/triviaSlice'
-
-
+import { incrementTheIndex } from '../store/triviaSlice';
+import Main from './Main';
 
 interface IState {
   hasQuestions: boolean;
@@ -14,41 +13,29 @@ interface IState {
 }
 
 const Content: React.FC<{}> = () => {
-
   const dispatch = useAppDispatch();
 
   const [stillAnswer, setStillAnswer] = useState(true);
   const [hasQuestions, setHasQuestions] = useState(false);
 
-
   const currentQuestionIndex = useAppSelector(
     (state) => state.trivia.currentQuestionIndex
   );
-  const numberOfQuestions = useAppSelector(state => state.trivia.questions.length);
-  const userAnswers = useAppSelector(state => state.trivia.userAnswers);
-  const correctAnswers = useAppSelector(state => state.trivia.answers);
-
+  const numberOfQuestions = useAppSelector(
+    (state) => state.trivia.questions.length
+  );
+  const userAnswers = useAppSelector((state) => state.trivia.userAnswers);
+  const correctAnswers = useAppSelector((state) => state.trivia.answers);
 
   const calculatedGrade = () => {
     const correctUserAnswers = userAnswers.filter(
       (userAnswer, i) => userAnswer === correctAnswers[i]
     );
-    const gradePerAnswer = 100/ userAnswers.length;
+    const gradePerAnswer = 100 / userAnswers.length;
     return gradePerAnswer * correctUserAnswers.length;
   };
 
-  const moveToNextQuestion = () => {
-    if (currentQuestionIndex < numberOfQuestions - 1) {
-      dispatch(incrementTheIndex);
-    } else {
-      calculatedGrade();
-      setStillAnswer(false);
-    }
-  };
 
-  const handleQuestions = (answer: number) => {
-    moveToNextQuestion();
-  };
 
   useEffect(() => {
     if (numberOfQuestions > 0) {
@@ -57,20 +44,18 @@ const Content: React.FC<{}> = () => {
   }, [numberOfQuestions]);
 
   return (
-    <div>
-      {stillAnswer ? (
+    <Main>
+      {currentQuestionIndex < numberOfQuestions ? (
         hasQuestions && (
           <div>
-            <Question
-              handleQuestions={handleQuestions}
-            />
+            <Question/>
             <Progressbar />
           </div>
         )
       ) : (
-        <Finish grade={calculatedGrade()} />
+        <Finish grade={calculatedGrade()} setStillAnswer={setStillAnswer} />
       )}
-    </div>
+    </Main>
   );
 };
 

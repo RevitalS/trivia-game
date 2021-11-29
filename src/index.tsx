@@ -8,15 +8,17 @@ import About from './Components/About';
 import HomePage from './Components/HomePage';
 import { Provider } from 'react-redux';
 import store from './store';
+import Content from './Components/Content';
 
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path='/home' element={<HomePage />} />
-        <Route path='/' element={<Navigate to='/home' />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/game' element={<App />} />
+        <Route path='/' element={<App/>}>
+          <Route index element={<HomePage/>}/>
+          <Route path='/about' element={<About />} />
+          <Route path='/game' element={<Content />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   </Provider>,
