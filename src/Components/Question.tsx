@@ -8,9 +8,7 @@ import {
   decrementTheIndex,
 } from '../store/triviaSlice';
 
-interface IProps {}
-
-const Question: React.FC<IProps> = (props) => {
+const Question: React.FC = () => {
   const dispatch = useAppDispatch();
   const currentQuestionIndex = useAppSelector(
     (state) => state.trivia.currentQuestionIndex

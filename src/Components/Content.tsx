@@ -4,16 +4,10 @@ import Question from './Question';
 import { IQuestion } from '../models/IQuestion';
 import Finish from './Finish';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { incrementTheIndex } from '../store/triviaSlice';
 import Main from './Main';
 
-interface IState {
-  hasQuestions: boolean;
-  stillAnswer: boolean;
-}
 
 const Content: React.FC<{}> = () => {
-  const dispatch = useAppDispatch();
 
   const [stillAnswer, setStillAnswer] = useState(true);
   const [hasQuestions, setHasQuestions] = useState(false);

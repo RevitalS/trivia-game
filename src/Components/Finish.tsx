@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { useAppDispatch } from '../store/hooks';
 import { reset } from '../store/triviaSlice';
 
 interface IProps {
@@ -12,8 +12,6 @@ const Finish: React.FC<IProps> = (props) => {
 
   const handleClick = () => {
     dispatch(reset());
-    console.log('handleClick');
-    //props.setStillAnswer(true);
   };
 
   return (

@@ -1,6 +1,4 @@
 import React from 'react';
-import { useFormInput } from '../hooks/useFormInput';
-
 interface IProps {
   text: string;
   index: string;
