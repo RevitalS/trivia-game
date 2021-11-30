@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import Progressbar from './Progressbar';
 import Question from './Question';
-import { IQuestion } from '../models/IQuestion';
 import Finish from './Finish';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { useAppSelector } from '../store/hooks';
 import Main from './Main';
 
 
 const Content: React.FC<{}> = () => {
 
-  const [stillAnswer, setStillAnswer] = useState(true);
   const [hasQuestions, setHasQuestions] = useState(false);
 
   const currentQuestionIndex = useAppSelector(
@@ -43,11 +40,10 @@ const Content: React.FC<{}> = () => {
         hasQuestions && (
           <div>
             <Question/>
-            <Progressbar />
           </div>
         )
       ) : (
-        <Finish grade={calculatedGrade()} setStillAnswer={setStillAnswer} />
+        <Finish grade={calculatedGrade()} />
       )}
     </Main>
   );

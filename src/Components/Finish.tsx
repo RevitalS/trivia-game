@@ -4,7 +4,6 @@ import { reset } from '../store/triviaSlice';
 
 interface IProps {
   grade: number;
-  setStillAnswer: (boolean: boolean) => void;
 }
 
 const Finish: React.FC<IProps> = (props) => {

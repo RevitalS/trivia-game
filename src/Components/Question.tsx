@@ -6,6 +6,7 @@ import {
   addAnswer,
   incrementTheIndex,
   decrementTheIndex,
+  INITIAL_ARR_VALUES,
 } from '../store/triviaSlice';
 
 const Question: React.FC = () => {
@@ -13,32 +14,29 @@ const Question: React.FC = () => {
   const currentQuestionIndex = useAppSelector(
     (state) => state.trivia.currentQuestionIndex
   );
-  const userAnswerFromStore = useAppSelector(
-    (state) => state.trivia.userAnswers[currentQuestionIndex]
-  );
 
   const userAnswersArr = useAppSelector((state) => state.trivia.userAnswers);
 
-  const [userAnswer, setUserAnswer] = useState(-1);
+  const [userAnswer, setUserAnswer] = useState(userAnswersArr[currentQuestionIndex]);
 
-  const currentQuestion = useAppSelector(
+  const currentQuestion:IQuestion = useAppSelector(
     (state) => state.trivia.questions[currentQuestionIndex]
   );
   const { title, possibleAnswers } = currentQuestion;
 
   const handleClickNext = () => {
-    if (userAnswer !== -1) {
+    if (userAnswer !== INITIAL_ARR_VALUES) {
+      setUserAnswer(userAnswersArr[currentQuestionIndex + 1]);
       dispatch(addAnswer(userAnswer));
       dispatch(incrementTheIndex());
-      setUserAnswer(userAnswersArr[currentQuestionIndex + 1]);
     } else {
       alert('Choose answer before moving to next question');
     }
   };
 
   const handleClickPrevious = () => {
-    dispatch(decrementTheIndex());
     setUserAnswer(userAnswersArr[currentQuestionIndex - 1]);
+    dispatch(decrementTheIndex());
   };
 
   const style = {

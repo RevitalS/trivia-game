@@ -1,5 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+export const INITIAL_ARR_VALUES = -1;
+const NUMBER_OF_QUESTIONS = 5
+
 export const triviaSlice = createSlice({
   name: 'trivia',
   initialState: {
@@ -28,13 +31,12 @@ export const triviaSlice = createSlice({
     ],
     currentQuestionIndex: 0,
     answers: [0, 1, 2, 0, 2],
-    userAnswers: Array(5).fill(-1),
+    userAnswers: Array(NUMBER_OF_QUESTIONS).fill(INITIAL_ARR_VALUES),
   },
   reducers: {
     addAnswer: (state, action: PayloadAction<number>) => {
       if (state.userAnswers.length === 0) {
         state.userAnswers = Array<number>(state.questions.length);
-        console.log(state.userAnswers);
       }
       state.userAnswers[state.currentQuestionIndex] = action.payload;
     },
@@ -45,8 +47,7 @@ export const triviaSlice = createSlice({
       state.currentQuestionIndex -= 1;
     },
     reset: (state) => {
-      console.log('reset');
-      state.userAnswers = Array(5).fill(-1);
+      state.userAnswers = Array(NUMBER_OF_QUESTIONS).fill(INITIAL_ARR_VALUES);
       state.currentQuestionIndex = 0;
     },
   },
