@@ -40,6 +40,8 @@ const Question: React.FC = () => {
     if (currentQuestionIndex !== 0) {
       setUserAnswer(userAnswersArr[currentQuestionIndex - 1]);
       dispatch(decrementTheIndex());
+    } else {
+      alert('There is no previous question');
     }
   };
 

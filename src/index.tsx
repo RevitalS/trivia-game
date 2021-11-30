@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import About from './Components/About';
 import HomePage from './Components/HomePage';
 import { Provider } from 'react-redux';
 import store from './store';
@@ -16,7 +15,6 @@ ReactDOM.render(
       <Routes>
         <Route path='/' element={<App/>}>
           <Route index element={<HomePage/>}/>
-          <Route path='/about' element={<About />} />
           <Route path='/game' element={<Content />} />
         </Route>
       </Routes>
