@@ -17,9 +17,11 @@ const Question: React.FC = () => {
 
   const userAnswersArr = useAppSelector((state) => state.trivia.userAnswers);
 
-  const [userAnswer, setUserAnswer] = useState(userAnswersArr[currentQuestionIndex]);
+  const [userAnswer, setUserAnswer] = useState(
+    userAnswersArr[currentQuestionIndex]
+  );
 
-  const currentQuestion:IQuestion = useAppSelector(
+  const currentQuestion: IQuestion = useAppSelector(
     (state) => state.trivia.questions[currentQuestionIndex]
   );
   const { title, possibleAnswers } = currentQuestion;
@@ -35,8 +37,10 @@ const Question: React.FC = () => {
   };
 
   const handleClickPrevious = () => {
-    setUserAnswer(userAnswersArr[currentQuestionIndex - 1]);
-    dispatch(decrementTheIndex());
+    if (currentQuestionIndex !== 0) {
+      setUserAnswer(userAnswersArr[currentQuestionIndex - 1]);
+      dispatch(decrementTheIndex());
+    }
   };
 
   const style = {
